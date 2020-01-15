@@ -37,4 +37,13 @@ public class SortAlgorithmTest {
         log.info("after bubble sort, arr is : {}", Arrays.toString(arr));
     }
 
+    /**
+     * 选择排序测试
+     */
+    @Test
+    public void selectionSortTest() {
+        SelectionSort.sort(arr);
+        log.info("after selection sort, arr is : {}", Arrays.toString(arr));
+    }
+
 }
