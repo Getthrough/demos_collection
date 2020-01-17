@@ -33,7 +33,8 @@ public class SortAlgorithmTest {
      */
     @Test
     public void bubbleSortTest() {
-        BubbleSort.sort(arr);
+        SortAlgorithm sortAlgorithm = new BubbleSort();
+        sortAlgorithm.sort(arr);
         log.info("after bubble sort, arr is : {}", Arrays.toString(arr));
     }
 
@@ -42,8 +43,19 @@ public class SortAlgorithmTest {
      */
     @Test
     public void selectionSortTest() {
-        SelectionSort.sort(arr);
+        SortAlgorithm sortAlgorithm = new SelectionSort();
+        sortAlgorithm.sort(arr);
         log.info("after selection sort, arr is : {}", Arrays.toString(arr));
+    }
+
+    /**
+     * 插入排序测试
+     */
+    @Test
+    public void insertionSortTest() {
+        SortAlgorithm sortAlgorithm = new InsertionSort();
+        sortAlgorithm.sort(arr);
+        log.info("after insertion sort, arr is : {}", Arrays.toString(arr));
     }
 
 }

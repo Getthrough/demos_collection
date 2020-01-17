@@ -13,9 +13,9 @@ package com.github.getthrough.sort_algorithm;
  * @author getthrough
  * @date 2020-01-14
  */
-public class BubbleSort {
+public class BubbleSort implements SortAlgorithm {
 
-    public static void sort(int[] toBeSortedArr) {
+    public void sort(int[] toBeSortedArr) {
 
         int temp;
         // 是否已经排好序

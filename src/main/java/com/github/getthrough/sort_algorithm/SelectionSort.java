@@ -13,9 +13,9 @@ package com.github.getthrough.sort_algorithm;
  * @author getthrough
  * @date 2020-01-15
  */
-public class SelectionSort {
+public class SelectionSort implements SortAlgorithm {
 
-    public static void sort(int[] toBeSortedArr) {
+    public void sort(int[] toBeSortedArr) {
 
         int temp;
         // 外层循环控制计算次数
