@@ -6,3 +6,4 @@ collection of daily demos
   * 冒泡排序
   * 选择排序
   * 插入排序
+* 出门买口罩问题 : )
