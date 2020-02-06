@@ -2,12 +2,6 @@ package com.github.getthrough.string_operation;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,7 +24,11 @@ public final class StringOperator {
      *      如：输入google，则找到最长对称字符串为goog；如输入abcda则能找到3个最长对称字符串为aba/aca/ada。
      *      若最长对称字符串存在多个，则输出多个相同长度的最长对称字符串，且字符串中不包含特殊字符。
      * 整体思路为：
-     *      1. 获取
+     *      1. 用左游标从左侧开始获取字符，用右游标获取右侧字符（逆序）比对，若相同则放入临时数组的前后位置
+     *      2. 判断左右侧相同字符相同时，中间是否夹有字符，若有，则将夹的字符每个分别于前后对称的字符组合，放入结果数组
+     *      3. 若左右游标重合或左 > 右则计算结束
+     *      4. 上述流程为以字符串左侧第一个字符为基准查找最长字符串，因此需要再作一个循环，遍历字符串每个位置，查询从该位置出发
+     *          能找到的所有对称字符串。
      * </pre>
      *
      * @param s
@@ -130,15 +128,7 @@ public final class StringOperator {
                     arr[len - 1 - count] = r;
                     // 如果左右相等，则将左和右内每个元素分别于已经对称的元素拼接，形成对称字符串
                     if (right - left > 1) {
-                        for (int i = left + 1; i < right; i++) {
-                            char c = s.charAt(i);
-                            if (!Character.isLetterOrDigit(c))
-                                continue;
-                            char[] temp = new char[len];
-                            System.arraycopy(arr, 0, temp, 0, arr.length);
-                            temp[count + 1] = c;
-                            addToList(symmetricalStrings, temp);
-                        }
+                        dealCharsBetweenSymmetricalString(s, left, symmetricalStrings, len, arr, count, right);
                     }
                     ++count;
                     --right;
@@ -148,6 +138,29 @@ public final class StringOperator {
             }
         }
         addToList(symmetricalStrings, arr);
+    }
+
+    /**
+     * 将夹在对称字符中的字符与前后对称字符拼接，直接放入对称字符串集合中
+     * @param s
+     * @param left
+     * @param symmetricalStrings
+     * @param len
+     * @param arr
+     * @param count
+     * @param right
+     */
+    private static void dealCharsBetweenSymmetricalString(String s, int left, List<String> symmetricalStrings, int len,
+                                                          char[] arr, int count, int right) {
+        for (int i = left + 1; i < right; i++) {
+            char c = s.charAt(i);
+            if (!Character.isLetterOrDigit(c))
+                continue;
+            char[] temp = new char[len];
+            System.arraycopy(arr, 0, temp, 0, arr.length);
+            temp[count + 1] = c;
+            addToList(symmetricalStrings, temp);
+        }
     }
 
     /**
